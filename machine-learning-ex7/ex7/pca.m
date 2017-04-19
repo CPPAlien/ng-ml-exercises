@@ -11,6 +11,10 @@ function [U, S] = pca(X)
 U = zeros(n);
 S = zeros(n);
 
+X = (X' * X) / m;
+
+[U,S,V] = svd(X);
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should first compute the covariance matrix. Then, you
 %               should use the "svd" function to compute the eigenvectors
