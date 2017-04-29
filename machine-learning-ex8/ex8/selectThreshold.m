@@ -12,7 +12,18 @@ F1 = 0;
 
 stepsize = (max(pval) - min(pval)) / 1000;
 for epsilon = min(pval):stepsize:max(pval)
-    
+    predictions = pval < epsilon;
+    tpM = (predictions == yval) & (predictions == 1);
+    tp = sum(tpM); % true positive
+    if tp == 0
+        continue;
+    end
+    fp = sum(predictions - tpM); % false positive
+    fn = sum(yval - tpM); % false negative
+    prec = tp / (tp + fp);
+    rec = tp / (tp + fn);
+    F1 = (2 * prec * rec) / (prec + rec);
+        
     % ====================== YOUR CODE HERE ======================
     % Instructions: Compute the F1 score of choosing epsilon as the
     %               threshold and place the value in F1. The code at the
